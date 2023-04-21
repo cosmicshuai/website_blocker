@@ -1,0 +1,47 @@
+{
+  "manifest_version": 3,
+  "name": "Website Blocker",
+  "version": "1.0",
+  "description": "A simple extension to block certain websites",
+  "icons": {
+    "48": "icon48.png"
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "48": "icon48.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-script.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked-page.html"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": false
+    }
+  ],
+  "options_page": "options.html",
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "rules",
+        "path": "rules.json",
+        "enabled": true
+      }
+    ]
+  }
+}
